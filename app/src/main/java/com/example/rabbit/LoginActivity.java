@@ -21,6 +21,8 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.w3c.dom.Text;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
     MaterialEditText email, password;
@@ -35,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Login");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Login");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         auth = FirebaseAuth.getInstance();
@@ -47,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txt_email = email.getText().toString();
-                String txt_password = password.getText().toString();
+                String txt_email = Objects.requireNonNull(email.getText()).toString();
+                String txt_password = Objects.requireNonNull(password.getText()).toString();
 
                 if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
                     Toast.makeText(LoginActivity.this,"All fields are required",Toast.LENGTH_SHORT).show();

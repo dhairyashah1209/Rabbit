@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/login"
             android:textSize="20sp"
             android:textStyle="bold"
             />
@@ -33,7 +33,7 @@
             android:inputType="textEmailAddress"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            android:hint="Email" />
+            android:hint="@string/email" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_height="wrap_content"
@@ -42,17 +42,16 @@
             android:inputType="textPassword"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            android:hint="Password" />
+            android:hint="@string/password" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="login"
+            android:text="@string/login"
             android:id="@+id/btn_login"
             android:background="@color/colorPrimaryDark"
             android:layout_marginTop="10dp"
             android:textColor="#fff"
-
             />
 
     </LinearLayout>
