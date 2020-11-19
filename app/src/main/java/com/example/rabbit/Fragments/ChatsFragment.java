@@ -119,7 +119,7 @@ public class ChatsFragment extends Fragment {
                 mUsers.clear();
                 mUsers.addAll(set);
                 //Log.d("mUsers"," " + mUsers.size());
-                userAdapter = new UserAdapter(getContext(), mUsers);
+                userAdapter = new UserAdapter(getContext(), mUsers, true);
                 recyclerView.setAdapter(userAdapter);
             }
 
