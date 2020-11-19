@@ -16,8 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
@@ -51,16 +54,33 @@ public class RegisterActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txt_username = Objects.requireNonNull(username.getText()).toString();
-                String txt_email = Objects.requireNonNull(email.getText()).toString();
-                String txt_password = Objects.requireNonNull(password.getText()).toString();
+                final String txt_username = Objects.requireNonNull(username.getText()).toString();
+                final String txt_email = Objects.requireNonNull(email.getText()).toString();
+                final String txt_password = Objects.requireNonNull(password.getText()).toString();
 
                 if(TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
                     Toast.makeText(RegisterActivity.this,"All fields are required",Toast.LENGTH_SHORT).show();
                 } else if(txt_password.length()<6) {
                     Toast.makeText(RegisterActivity.this,"Password must be atleast 6 chars",Toast.LENGTH_SHORT).show();
                 } else {
-                    register(txt_username, txt_email, txt_password);
+                    DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("Users");
+                    ref.orderByChild("search").equalTo(txt_username.toLowerCase()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                //username exist
+                                Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
+                            } else {
+                                register(txt_username, txt_email, txt_password);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                        //register(txt_username, txt_email, txt_password);
+                    });
                 }
             }
         });
