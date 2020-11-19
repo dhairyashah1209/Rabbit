@@ -8,4 +8,5 @@
     <string name="logout">Logout</string>
     <string name="MessageHint">Type a message…</string>
     <string name="profile">Profile</string>
+    <string name="search">Search…</string>
 </resources>
